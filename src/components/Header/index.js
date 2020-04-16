@@ -10,7 +10,7 @@ const Header = ({children}) => (
 export default Header;
 
 Header.propTypes = {
-  children: PropTypes.objectOf(PropTypes.object()),
+  children: PropTypes.object,
 };
 
 Header.defaultProps = {
