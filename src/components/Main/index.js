@@ -1,11 +1,12 @@
 import React from "react";
+import StudentsTable from "@components/StudentsTable";
 
 const Main = () => {
   return (
-    <>
-      <h2>Place for table header</h2>
-      <h3>Place for table body</h3>
-    </>
+    <main>
+      <h2>Students score</h2>
+      <StudentsTable />
+    </main>
   )
 };
 

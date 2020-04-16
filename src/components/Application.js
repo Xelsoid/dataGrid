@@ -3,6 +3,7 @@ import Header from "@components/Header";
 import Main from "@components/Main";
 
 import "./index.scss";
+import Footer from "@components/Footer";
 
 const Application = () => {
   return (
@@ -11,6 +12,7 @@ const Application = () => {
         <h1>DataGrid</h1>
       </Header>
       <Main/>
+      <Footer/>
     </>
   );
 };
