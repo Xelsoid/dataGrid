@@ -67,6 +67,7 @@
     "@root": ".",
     "@components": "src/components",
     "@store": "src/store",
+    "@actions": "src/store/actions",
     "@data": "src/mockedData",
     "@images": "src/images",
     "fileRoots": "src/foo"

@@ -12,7 +12,7 @@ const TableRow = ({children}) => {
 export default TableRow;
 
 TableRow.propTypes = {
-  children: PropTypes.object,
+  children: PropTypes.array,
 };
 
 TableRow.defaultProps = {
