@@ -1,45 +1,52 @@
-import React, {useState} from "react";
+import React from "react";
 import { connect } from 'react-redux';
 import {bindActionCreators} from "redux";
-import {sortSiteDataByName} from "@actions/"
+import {sortDataByType} from "@actions/"
 import TableRow from "@components/StudentsTable/TableRow";
 import TableHeader from "@components/StudentsTable/TableHeader";
 import TableCell from "@components/StudentsTable/TableCell";
+import {formatDate} from "@helpers/";
 import PropTypes from "prop-types";
 
-const StudentsTable = ({tableData, sortSiteDataByName}) => {
 
-  const [sortRate, setSortRate] = useState('true');
+const StudentsTable = ({tableData, sortRow}) => {
 
-  const handleSortDataByName = (e) => {
-    setSortRate(!sortRate);
-    sortSiteDataByName(e.target.getAttribute("data-id"), sortRate);
+  const handleSortStringData = (e, sortOrder, value) => {
+    sortRow(value, sortOrder, 'string');
+  };
+
+  const handleSortNumberData = (e, sortOrder, value) => {
+    sortRow(value, sortOrder, 'number');
+  };
+
+  const handleSortDateData = (e, sortOrder, value) => {
+    sortRow(value, sortOrder, 'date');
   };
 
   return (
     <table className="table">
       <thead className="thead-dark">
         <TableRow>
-          <TableHeader dataAttr='rank' value='#' onClickCallback={handleSortDataByName}/>
-          <TableHeader dataAttr="name" value='Name' onClickCallback={handleSortDataByName}/>
-          <TableHeader dataAttr='githubId' value='Github' onClickCallback={handleSortDataByName}/>
-          <TableHeader dataAttr='countryName' value='Country' onClickCallback={handleSortDataByName}/>
-          <TableHeader dataAttr='cityName' value='City' onClickCallback={handleSortDataByName}/>
-          <TableHeader dataAttr='totalScoreChangeDate' value='Date' onClickCallback={handleSortDataByName}/>
-          <TableHeader dataAttr='totalScore' value='Score' onClickCallback={handleSortDataByName}/>
+          <TableHeader value='rank' text='#' onClickCallback={handleSortNumberData}/>
+          <TableHeader value='name' text='Name' onClickCallback={handleSortStringData}/>
+          <TableHeader value='githubId' text='GithubId' onClickCallback={handleSortStringData}/>
+          <TableHeader value='countryName' text='Country' onClickCallback={handleSortStringData}/>
+          <TableHeader value='cityName' text='City' onClickCallback={handleSortStringData}/>
+          <TableHeader value='totalScoreChangeDate' text='Date' onClickCallback={handleSortDateData}/>
+          <TableHeader value='totalScore' text='Score' onClickCallback={handleSortNumberData}/>
         </TableRow>
       </thead>
       <tbody>
         {tableData.map((row, index) => {
-          const {rank, name, githubId, countryName, cityName,totalScoreChangeDate, totalScore} = row;
+          const {rank, name, githubId, countryName, cityName, totalScoreChangeDate, totalScore} = row;
           return(
             <TableRow key={row.id} row={row} index={index}>
-              <TableHeader value={rank}/>
+              <TableCell value={rank} />
               <TableCell value={name} />
               <TableCell value={githubId} />
               <TableCell value={countryName} />
               <TableCell value={cityName} />
-              <TableCell value={totalScoreChangeDate} />
+              <TableCell value={formatDate(totalScoreChangeDate)} />
               <TableCell value={totalScore} />
             </TableRow>
           )
@@ -54,17 +61,17 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({sortSiteDataByName}, dispatch)
+  return bindActionCreators({sortRow: sortDataByType}, dispatch)
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(StudentsTable);
 
 StudentsTable.propTypes = {
   tableData: PropTypes.array,
-  sortSiteDataByName: PropTypes.func
+  sortRow: PropTypes.func
 };
 
 StudentsTable.defaultProps = {
   tableData: null,
-  sortSiteDataByName: null
+  sortRow: null
 };

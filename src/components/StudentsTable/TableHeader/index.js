@@ -1,9 +1,16 @@
-import React from "react";
+import React, {useState} from "react";
 import PropTypes from "prop-types";
 
-const TableHeader = ({dataAttr, value, onClickCallback}) => {
+const TableHeader = ({value, text, onClickCallback}) => {
+  const [isSortedASC, setIsSortedASC] = useState('true');
+
+  const handleSortingCallback = (e) => {
+    onClickCallback(e, isSortedASC, value);
+    setIsSortedASC(!isSortedASC);
+  };
+
   return (
-    <th data-id={dataAttr} scope="col" onClick={onClickCallback}>{value}</th>
+    <th scope="col" onClick={handleSortingCallback}>{text}</th>
   )
 };
 
@@ -11,12 +18,12 @@ export default TableHeader;
 
 TableHeader.propTypes = {
   value: PropTypes.any,
-  dataAttr: PropTypes.string,
+  text: PropTypes.string,
   onClickCallback: PropTypes.func
 };
 
 TableHeader.defaultProps = {
   value: null,
   onClickCallback: null,
-  dataAttr: null
+  text: null
 };

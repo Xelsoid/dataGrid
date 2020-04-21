@@ -3,7 +3,7 @@ export const addSiteData = (todos, inputValue) => ({
   payload: {todos, inputValue}
 });
 
-export const sortSiteDataByName = (value, order) => ({
-  type: "SORT_SITE_DATA_BY_NAME",
-  payload: {value, order}
+export const sortDataByType = (value, order, dataType) => ({
+  type: "SORT_DATA_BY_TYPE",
+  payload: {value, order, dataType}
 });
